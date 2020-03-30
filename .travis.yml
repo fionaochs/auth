@@ -2,3 +2,4 @@ language: node_js
 node_js: node
 services: mongodb
 env: MONGODB_URI=mongodb://localhost:27017/travis
+env: APP_SECRET=5h25bkj2b6kj42b6kj42b6k4
