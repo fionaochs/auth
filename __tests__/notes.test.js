@@ -2,29 +2,30 @@ const { getAgent, getUser, getNote } = require('../db/data-helpers');
 
 describe('notes routes', () => {
   it('creates a note', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
 
     return getAgent()
       .post('/api/v1/notes')
       .send({
         title: 'title',
-        body: 'body'
+        body: 'body',
+        author: user._id
       })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           title: 'title',
           body: 'body',
-          author: user._id,
           createdAt: expect.any(String),
           updatedAt: expect.any(String),
+          author: expect.any(String),
           __v: 0
         });
       });
   });
 
   it('updates a note', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
     const note = await getNote({ author: user._id });
 
     return getAgent()
@@ -40,7 +41,7 @@ describe('notes routes', () => {
   });
 
   it('deletes a note', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
     const note = await getNote({ author: user._id });
 
     return getAgent()

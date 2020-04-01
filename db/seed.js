@@ -4,12 +4,12 @@ const Note = require('../lib/models/Note');
 
 module.exports = async({ usersToCreate = 5, notesToCreate = 100 } = {}) => {
   const loggedInUser = await User.create({
-    email: 'test@test.com',
+    username: 'test@test.com',
     password: 'password'
   });
 
   const users = await User.create([...Array(usersToCreate)].slice(1).map(() => ({
-    email: chance.email(),
+    username: chance.email(),
     password: chance.animal()
   })));
 
